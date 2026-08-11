@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: expense-tracker
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/expense
+    username: root
+    password: ""
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+
+server:
+  port: 8087
+  servlet:
+    context-path : /expense
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
