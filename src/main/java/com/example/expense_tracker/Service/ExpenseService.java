@@ -1,5 +1,6 @@
 package com.example.expense_tracker.Service;
 
+import com.example.expense_tracker.Models.CategorySummary;
 import com.example.expense_tracker.Models.Expense;
 import com.example.expense_tracker.Repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,14 @@ public class ExpenseService {
         } else {
             return null;
         }
+    }
+
+    public void deleteExpense(Long id){
+        expenseRepository.deleteById(id);
+        System.out.println("Deleted expense " + id);
+    }
+
+    public List<CategorySummary> getSummary() {
+        return expenseRepository.getSummaryByCategory();
     }
 }

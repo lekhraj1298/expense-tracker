@@ -1,5 +1,6 @@
 package com.example.expense_tracker.controller;
 
+import com.example.expense_tracker.Models.CategorySummary;
 import com.example.expense_tracker.Models.Expense;
 import com.example.expense_tracker.Service.ExpenseService;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,17 @@ public class ExpenseController {
     @PutMapping("/{id}")
     public ResponseEntity<Expense>updateExpense(@PathVariable ("id") Long id, @RequestBody Expense expense){
         return ResponseEntity.ok().body(expenseService.putExpense(id, expense));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String>deleteExpense(@PathVariable ("id") Long id){
+        expenseService.deleteExpense(id);
+//        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Expense deleted successfully");
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<List<CategorySummary>> getSummary() {
+        return ResponseEntity.ok(expenseService.getSummary());
     }
 }
