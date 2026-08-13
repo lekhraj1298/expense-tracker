@@ -1,5 +1,6 @@
 package com.example.expense_tracker.Service;
 
+import com.example.expense_tracker.Exception.ResourceNotFoundException;
 import com.example.expense_tracker.Models.CategorySummary;
 import com.example.expense_tracker.Models.Expense;
 import com.example.expense_tracker.Repository.ExpenseRepository;
@@ -22,13 +23,18 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+//    public Expense getExpense(Long id) {
+//        Optional<Expense> optional = expenseRepository.findById(id);
+//        if (optional.isPresent()) {
+//            return optional.get();
+//        } else {
+//            return null;
+//        }
+//    }
+
     public Expense getExpense(Long id) {
-        Optional<Expense> optional = expenseRepository.findById(id);
-        if (optional.isPresent()) {
-            return optional.get();
-        } else {
-            return null;
-        }
+        return expenseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
     }
 
     public List<Expense> getExpenseByAmount(BigDecimal amount) {
@@ -57,4 +63,6 @@ public class ExpenseService {
     public List<CategorySummary> getSummary() {
         return expenseRepository.getSummaryByCategory();
     }
+
+
 }

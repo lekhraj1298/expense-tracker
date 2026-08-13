@@ -1,6 +1,8 @@
 package com.example.expense_tracker.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,11 +15,15 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
 
+    @NotNull(message = "Amount is required")
+    @Positive(message = "Amount must be greater than zero")
     @Column(precision = 10, scale = 2)
     private BigDecimal amount;
 
+    @NotNull(message = "Date is required")
     private LocalDate date;
 
+    @NotNull(message = "Description cant be null")
     private String description;
 
     @ManyToOne

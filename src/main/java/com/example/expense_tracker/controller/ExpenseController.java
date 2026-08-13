@@ -3,6 +3,7 @@ package com.example.expense_tracker.controller;
 import com.example.expense_tracker.Models.CategorySummary;
 import com.example.expense_tracker.Models.Expense;
 import com.example.expense_tracker.Service.ExpenseService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ExpenseController {
         this.expenseService= expenseService;
     }
     @PostMapping("/save")
-    public ResponseEntity<Expense> saveExpense(@RequestBody Expense expense) {
+    public ResponseEntity<Expense> saveExpense(@Valid @RequestBody Expense expense) {
         return ResponseEntity.status(HttpStatus.CREATED).body(expenseService.saveExpense(expense));
     }
 
@@ -36,7 +37,7 @@ public class ExpenseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Expense>updateExpense(@PathVariable ("id") Long id, @RequestBody Expense expense){
+    public ResponseEntity<Expense>updateExpense(@Valid @PathVariable ("id") Long id, @RequestBody Expense expense){
         return ResponseEntity.ok().body(expenseService.putExpense(id, expense));
     }
 
