@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,4 +20,6 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
             "FROM expense e JOIN category c ON e.category_id = c.id " +
             "GROUP BY c.name", nativeQuery = true)
     List<CategorySummary> getSummaryByCategory();
+
+    List<Expense> findByDateBetween(LocalDate from, LocalDate to);
 }

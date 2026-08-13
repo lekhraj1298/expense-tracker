@@ -4,11 +4,13 @@ import com.example.expense_tracker.Models.CategorySummary;
 import com.example.expense_tracker.Models.Expense;
 import com.example.expense_tracker.Service.ExpenseService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -51,5 +53,12 @@ public class ExpenseController {
     @GetMapping("/summary")
     public ResponseEntity<List<CategorySummary>> getSummary() {
         return ResponseEntity.ok(expenseService.getSummary());
+    }
+
+    @GetMapping("/range")
+    public ResponseEntity<List<Expense>> getByDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        return ResponseEntity.ok(expenseService.getExpensesByDateRange(from, to));
     }
 }

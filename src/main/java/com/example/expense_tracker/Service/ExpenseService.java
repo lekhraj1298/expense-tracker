@@ -7,6 +7,7 @@ import com.example.expense_tracker.Repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,11 @@ public class ExpenseService {
 
     public List<CategorySummary> getSummary() {
         return expenseRepository.getSummaryByCategory();
+    }
+
+
+    public List<Expense> getExpensesByDateRange(LocalDate from, LocalDate to) {
+        return expenseRepository.findByDateBetween(from, to);
     }
 
 
