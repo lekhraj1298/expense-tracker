@@ -61,4 +61,9 @@ public class ExpenseController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
         return ResponseEntity.ok(expenseService.getExpensesByDateRange(from, to));
     }
+
+    @GetMapping
+    public ResponseEntity<List<Expense>> getExpenses() {
+        return ResponseEntity.ok(expenseService.getExpenses());
+    }
 }

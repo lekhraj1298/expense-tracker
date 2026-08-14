@@ -4,7 +4,9 @@ import com.example.expense_tracker.Exception.ResourceNotFoundException;
 import com.example.expense_tracker.Models.CategorySummary;
 import com.example.expense_tracker.Models.Expense;
 import com.example.expense_tracker.Repository.ExpenseRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,6 +38,10 @@ public class ExpenseService {
     public Expense getExpense(Long id) {
         return expenseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
+    }
+
+    public List<Expense> getExpenses() {
+        return expenseRepository.findAll();
     }
 
     public List<Expense> getExpenseByAmount(BigDecimal amount) {
